@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import model.Candidate;
+import model.Cat;
 import model.Person;
 import model.Person.Sex;
 
@@ -38,7 +39,7 @@ public class StreamPractice {
                 .mapToDouble(i -> i % 2 == 0 ? numbers.get(i) : numbers.get(i) - 1)
                 .filter(n -> n % 2 != 0)
                 .average()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("Odd numbers do not found"));
     }
 
     /**
@@ -87,7 +88,7 @@ public class StreamPractice {
                 .filter(p -> p.getSex().equals(Sex.WOMAN)
                         && p.getAge() >= femaleAge)
                 .flatMap(p -> p.getCats().stream())
-                .map(cat -> cat.getName())
+                .map(Cat::getName)
                 .collect(Collectors.toList());
     }
 
